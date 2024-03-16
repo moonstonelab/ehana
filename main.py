@@ -15,7 +15,7 @@ def main():
             title = input(":")
             print("Enter description:")
             description = input(":")
-            create_todo(title, description, False)
+            create_todo(title, description)
 
         # List all todo items
         if command == "l":

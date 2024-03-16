@@ -9,13 +9,14 @@ class ToDo:
         self.status = status
 
     def __str__(self):
-        return f"ID :{self.id} - {self.title} - {self.description} - {'Completed' if self.status else 'Not completed'}"
+        return f"ID({self.id}) - {self.title} - {self.description} - {'Completed' if self.status else 'Not completed'}"
 
 
-def create_todo(title, description, status):
-    new_todo = ToDo(id, title, description, status)
-    todo_store[id] = new_todo
+def create_todo(title, description):
+    new_todo = ToDo(todo_store.next_id(), title, description, False)
+    todo_store.items[id] = new_todo
+    return todo_store.items[id]
 
 
 def list_all_todos():
-    return todo_store.values()
+    return list(todo_store.items.values())
