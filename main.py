@@ -47,6 +47,16 @@ def main():
             # 2. Delete the todo item
             pass
 
+        # Print help texts
+        if command == "h":
+            print("Commands:")
+            print("  n: Create new todo item")
+            print("  l: List all todo items")
+            print("  u: Update a todo item")
+            print("  s: Update a todo item status")
+            print("  d: Delete a todo item")
+            print("  q: Quit")
+
     print("Bye!")
 
 
