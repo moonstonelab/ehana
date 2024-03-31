@@ -46,6 +46,9 @@ class Store:
         self._next_id += 1
         return self._next_id
 
+    def reset_next_id(self):
+        self._next_id = 0
+
     def save(self):
         """
         Saves the store to the CSV file.

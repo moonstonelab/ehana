@@ -1,8 +1,16 @@
-from ehana import ToDo, create_todo, list_all_todos
+from ehana import ToDo, create_todo, list_all_todos, update_todo, get_todo, update_todo_status, delete_todo
+
+def print_all_todos():
+    if not list_all_todos():
+        print("No todos found.")
+        return
+    for todo in list_all_todos():
+        print(todo)
 
 # I am in branch 1
 def main():
     print("Welcome to ehana!")
+    print("Enter h for help, q to quit")
     while True:
         command = input(":")
 
@@ -12,40 +20,58 @@ def main():
         # Create new todo item
         if command == "n":
             print("Enter title:")
-            title = input(":")
+            title = input("> ")
             print("Enter description:")
-            description = input(":")
+            description = input("> ")
             create_todo(title, description)
+            print_all_todos()
 
         # List all todo items
         if command == "l":
-            for todo in list_all_todos():
-                print(todo)
+            print_all_todos()
 
         # Update a todo item
         if command == "u":
-            # TODO: Implement update logic
-            # 1. Ask for todo id
-            # 2. Show the current title and ask for new title. If the user doesn't want to change the title, just press enter.
-            # 3. Show the current description and ask for new description. If the user doesn't want to change the description, just press enter.
-            # 4. Show the current status and ask for new status. If the user doesn't want to change the status, just press enter.
-            # 5. Update the todo item
-            pass
+            print("Enter todo id:")
+            todo_id = input("> ")
+            if not todo_id.isdigit() or get_todo(int(todo_id)) is None :
+                print("Invalid todo id")
+                continue
+            print("Enter new title:")
+            new_title = input("> ")
+            if new_title == "":
+                new_title = get_todo(int(todo_id)).title
+            print("Enter new description:")
+            new_description = input("> ")
+            if new_description == "":
+                new_description = get_todo(int(todo_id)).description
+            print("Is it done? (y/n)")
+            is_done = input("> ") == "y"
+            update_todo(int(todo_id), new_title, new_description, is_done)
+            print_all_todos()
 
         # Update a todo item status
         if command == "s":
-            # TODO: Implement update status logic
-            # 1. Ask for todo id
-            # 2. Show the current status and ask for new status
-            # 3. Update the status
-            pass
+            print("Enter todo id:")
+            todo_id = input("> ")
+            if not todo_id.isdigit() or get_todo(int(todo_id)) is None :
+                print("Invalid todo id")
+                continue
+            print("Is it done? (y/n)")
+            is_done = input("> ") == "y"
+            update_todo_status(int(todo_id), is_done)
+            print_all_todos()
 
         # Delete a todo item
         if command == "d":
-            # TODO: Implement delete logic
-            # 1. Ask for todo id
-            # 2. Delete the todo item
-            pass
+            print("Enter todo id:")
+            todo_id = input("> ")
+            found = get_todo(int(todo_id))
+            if not todo_id.isdigit() or get_todo(int(todo_id)) is None :
+                print("Invalid todo id")
+                continue
+            delete_todo(int(todo_id))
+            print_all_todos()
 
         # Print help texts
         if command == "h":
