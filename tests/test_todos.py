@@ -1,5 +1,5 @@
 import unittest
-from ehana import ToDo, create_todo, list_all_todos
+from ehana import create_todo, list_all_todos
 
 
 class TestEhana(unittest.TestCase):

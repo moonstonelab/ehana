@@ -1,12 +1,13 @@
 import os
 import csv
-from .model import ToDo
+from ..model import ToDo
+from ..config import config
 
 # Define the file path
-file_path = "store.csv"
+file_path = config["DEFAULT"]["csvfile"]
 
 
-class Store:
+class CsvStore:
     def __init__(self):
         """
         Initializes a new store.
@@ -67,5 +68,40 @@ class Store:
                     }
                 )
 
+    def add_todo(self, todo):
+        """
+        Adds a new todo to the store.
+        """
+        self.items[todo.id] = todo
+        self.save()
 
-todo_store = Store()
+    def get_todo(self, id):
+        """
+        Returns the todo with the given id.
+        """
+        return self.items.get(id)
+
+    def load(self):
+        """
+        Returns a list of all todos in the store.
+        """
+        return list(self.items.values())
+
+    def delete_todo(self, id):
+        """
+        Deletes the todo with the given id.
+        """
+        del self.items[id]
+        self.save()
+        if len(self.items) == 0:
+            self.reset_next_id()
+
+    def update_todo(self, id, title, description, status):
+        """
+        Updates the todo with the given id.
+        """
+        self.items[id].title = title
+        self.items[id].description = description
+        self.items[id].status = status
+        self.save()
+        return self.items[id]
